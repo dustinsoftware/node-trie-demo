@@ -3,7 +3,7 @@ import { createReadStream } from "node:fs";
 import { createInterface } from "node:readline";
 import { randomInt } from "node:crypto";
 const numberFile = "numbers.txt";
-const maxRandomNumber = 10_000_000;
+const maxRandomNumber = 10_000;
 const sizeOfFileInMb = 100;
 
 // usage:
@@ -16,7 +16,7 @@ class Node {
   count = 0;
 }
 
-async function generateNumbers() {
+export async function generateNumbers() {
   await writeFile(numberFile, "");
 
   let buffer: string[] = [];
@@ -42,7 +42,7 @@ async function generateNumbers() {
   await purgeBuffer();
 }
 
-function recurseNode(
+export function recurseNode(
   currentNode: Node | undefined,
   fullString: string,
   remainderOfString: string
@@ -69,7 +69,7 @@ function recurseNode(
   );
 }
 
-function* findDuplicates(
+export function* findDuplicates(
   currentNode: Node,
   builtString: string
 ): Generator<string, void, void> {
@@ -88,7 +88,7 @@ function* findDuplicates(
   return;
 }
 
-async function compute() {
+export async function compute() {
   let root = new Node("");
 
   await new Promise<void>((resolve) => {
@@ -106,9 +106,13 @@ async function compute() {
 
   // find dupes, traversal will be O(N) ?
   console.log("finding dupes");
+
+  let resultsOutput = ``;
   for (let result of findDuplicates(root, "")) {
-    console.log(result);
+    resultsOutput = resultsOutput + result + "\n";
   }
+
+  writeFile("results.txt", resultsOutput);
 }
 async function main() {
   if (process.argv[2] === "generate") {
