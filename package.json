@@ -1,0 +1,19 @@
+{
+  "name": "node-trie-demo",
+  "version": "1.0.0",
+  "main": "entrypoint.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "start": "node dist/entrypoint.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.2"
+  }
+}
