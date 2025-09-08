@@ -3,6 +3,8 @@ import { createReadStream } from "node:fs";
 import { createInterface } from "node:readline";
 import { randomInt } from "node:crypto";
 const numberFile = "numbers.txt";
+const maxRandomNumber = 10_000_000;
+const sizeOfFileInMb = 100;
 
 // usage:
 // npm start generate - creates a 1 MB file with random numbers
@@ -31,11 +33,11 @@ async function generateNumbers() {
       console.log("size: " + size);
 
       // minimum size in MB
-      if (size > 1) {
+      if (size > sizeOfFileInMb) {
         break;
       }
     }
-    buffer.push(randomInt(10000000000).toString());
+    buffer.push(randomInt(maxRandomNumber).toString());
   }
   await purgeBuffer();
 }
